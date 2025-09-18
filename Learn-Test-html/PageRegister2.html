@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg,#FEFEF7 0%, #FFFFF0 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+        max-width: 1500px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column; /* เรียงแนวตั้ง */
+        gap: 20px;
+        }
+
+
+
+
+
+        h2 {
+            margin-bottom: 30px;
+            font-size: 28px;
+            text-align: center;
+        }
+           
+        
+        button {
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #281f1f, #000000);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(33, 16, 9, 0.3);
+        }
+        
+      
+        
+        #output {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 4px solid #667eea;
+        }
+        
+        #output p {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            font-size: 16px;
+        }
+        
+        #output p:last-child {
+            margin-bottom: 0;
+        }
+        
+        #output strong {
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .no-data {
+            text-align: center;
+            color: #6c757d;
+            font-style: italic;
+            padding: 40px 20px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                flex-direction: column;
+                height: auto;
+                min-height: calc(100vh - 20px);
+            }
+            
+            .item-left {
+                flex: none;
+                width: 100%;
+                padding: 30px 20px;
+            }
+            
+            .item-right {
+                flex: none;
+                width: 100%;
+                padding: 30px 20px;
+                min-height: 400px;
+            }
+            
+            h2 {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+            
+            input, button {
+                font-size: 16px;
+            }
+            
+            form {
+                gap: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                border-radius: 10px;
+                margin: 0;
+                height: 100vh;
+            }
+            
+            body {
+                padding: 0;
+            }
+            
+            .item-left, .item-right {
+                padding: 20px 15px;
+            }
+            
+            h2 {
+                font-size: 20px;
+            }
+        }
+        
+
+  /* Modal Styles */
+        .card-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .card-modal.show {
+            display: flex;
+        }  
+    </style>
+</head>
+<body>
+
+<!-- ฟอร์ม Modal -->
+<div id="formCard" class="card-modal">
+  <div class="card-content">
+    <h3>เพิ่มข้อมูลใหม่</h3>
+    <form id="registerForm">
+      <label for="fullname">ชื่อ-นามสกุล</label>
+      <input type="text" id="fullname" name="fullname" placeholder="กรอกชื่อ-นามสกุล" required>
+
+      <label for="car">ทะเบียนรถ</label>
+      <input type="text" id="car" name="car" placeholder="เช่น กข 1234" required>
+
+      <label for="age">อายุ</label>
+      <input type="number" id="age" name="age" placeholder="กรอกอายุ" min="1" max="120" required>
+
+      <label for="phone">เบอร์โทร</label>
+      <input type="tel" id="phone" name="phone" placeholder="เช่น 081-234-5678" required>
+
+      <label for="time">วันเวลา</label>
+      <input type="datetime-local" id="time" name="time" required>
+
+      <label>เพศ</label>
+      <div class="radio-group">
+        <label><input type="radio" name="gender" value="ชาย" required> ชาย</label>
+        <label><input type="radio" name="gender" value="หญิง" required> หญิง</label>
+        <label><input type="radio" name="gender" value="อื่นๆ" required> อื่นๆ</label>
+      </div>
+
+      <button type="submit">💾 บันทึกข้อมูล</button>
+    </form>
+    <button id="closeCard" class="close-btn">✕ ปิด</button>
+  </div>
+</div>
+
+
+    <div class="container">
+        <h2>📝 ลงทะเบียน</h2>
+        <!-- ปุ่มอยู่บนสุด -->
+         <div class="box">
+            <button id="showFormBtn">➕ เพิ่มข้อมูล</button>
+            <button id="showFormBtn">🔍 ค้นทะเบียนรถ</button>
+        </div>
+
+        <!-- Output ข้อมูลด้านล่างปุ่ม -->
+        <div id="output">
+            <p class="no-data">ยังไม่มีข้อมูล กรุณากรอกแบบฟอร์มเพื่อเริ่มต้น</p>
+        </div>
+    </div>
+
+    
+    <script>
+        const addForm = document.getElementById('showFormBtn')
+            const formCard = document.getElementById('formCard');
+            const closeCard = document.getElementById('closeCard');
+
+        const form = document.getElementById('registerForm');
+        const output = document.getElementById('output');
+
+        const radios = document.querySelectorAll('input[name="gender"]');
+        let recordCount = 0;
+
+        addForm.addEventListener('click', () => {
+            formCard.style.display = 'block';
+        })
+        
+        closeCard.addEventListener('click', () => {
+        formCard.style.display = 'none'; // ซ่อนฟอร์ม
+         });
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const fullname = document.getElementById('fullname').value;
+            const car = document.getElementById('car').value;
+            const age = document.getElementById('age').value;
+            const phone = document.getElementById('phone').value;
+            const time = document.getElementById('time').value;
+            
+            recordCount++;
+            
+            // Format datetime for display
+            const dateTime = new Date(time);
+            const formattedTime = dateTime.toLocaleString('th-TH', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            let selectedGender = '';
+            radios.forEach(radio => {
+                if (radio.checked) {
+                    selectedGender = radio.value;
+                }
+            });
+                        
+            // Create new record HTML
+            const newRecord = `
+                <div style="margin-bottom: 20px; padding: 20px; background: linear-gradient(135deg, #f8f9fa, #e9ecef); border-radius: 12px; border-left: 4px solid #667eea;">
+                    <h4 style="margin-bottom: 15px; color: #495057;">📋 ข้อมูลที่ ${recordCount}</h4>
+                    <p><strong>👤 ชื่อ-นามสกุล:</strong> ${fullname}</p>
+                    <p><strong>🚗 ทะเบียนรถ:</strong> ${car}</p>
+                    <p><strong>🎂 อายุ:</strong> ${age} ปี</p>
+                    <p><strong>📞 เบอร์โทร:</strong> ${phone}</p>
+                    <p><strong>📅 วันเวลา:</strong> ${formattedTime}</p>
+                    <p><strong>เพศ :</strong> ${selectedGender}</p>
+                </div>
+            `;
+            
+            // If this is the first record, clear the "no data" message
+            if (recordCount === 1) {
+                output.innerHTML = newRecord;
+            } else {
+                output.insertAdjacentHTML('afterbegin', newRecord);
+            }
+
+            // Reset form
+            form.reset();
+            
+            // Scroll to top of output
+            output.scrollTop = 0;
+            
+            // Add success animation
+            const button = form.querySelector('button');
+            const originalText = button.textContent;
+            button.textContent = '✅ บันทึกสำเร็จ!';
+            button.style.background = 'linear-gradient(135deg, #00b894, #00a085)';
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.background = 'linear-gradient(135deg, #ff6b6b, #ee5a24)';
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Modal Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        /* Modal style */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 300px; 
+            border-radius: 5px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>ข้อมูลการเข้าชั่ง</h2>
+    <button id="openModalBtn">เพิ่มข้อมูล</button>
+
+    <!-- Modal Form -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModalBtn">&times;</span>
+            <h3>กรอกข้อมูล</h3>
+            <form id="dataForm">
+                <label>ชื่อ นามสกุล:</label><br>
+                <input type="text" id="fullname" required><br><br>
+
+                <label>ทะเบียนรถ:</label><br>
+                <input type="text" id="carNumber" required><br><br>
+
+                <label>สินค้า:</label><br>
+                <input type="text" id="product" required><br><br>
+
+                <label>เวลาที่จะเข้าชั่ง:</label><br>
+                <input type="date" id="weightTime" required><br><br>
+
+                <button type="submit">บันทึก</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ตารางแสดงข้อมูล -->
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>ชื่อ นามสกุล</th>
+                <th>ทะเบียนรถ</th>
+                <th>สินค้า</th>
+                <th>เวลาที่จะเข้าชั่ง</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- ข้อมูลจะแสดงที่นี่ -->
+        </tbody>
+    </table>
+
+    <script src="form.js"></script>
+</body>
+</html>
